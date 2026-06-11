@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Las Tapias de Tandil · Barrio Abierto</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --verde:   #473EFD;
+    --verde2:  #863DFD;
+    --verde3:  #4129A3;
+    --dorado:  #FFFFFF;
+    --dorado2: #FFFFFF;
+    --crema:   #F7F3EC;
+    --gris:    #444;
+    --gris2:   #777;
+    --blanco:  #FFFFFF;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--gris);
+    background: var(--blanco);
+    line-height: 1.7;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(134,61,253,0.96);
+    backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px; height: 68px;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 12px; }
+  .nav-logo span {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; font-weight: 600;
+    color: var(--blanco); letter-spacing: 1px;
+  }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    color: rgba(255,255,255,0.8); text-decoration: none;
+    font-size: 13px; font-weight: 500; letter-spacing: 0.5px;
+    text-transform: uppercase; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--dorado); }
+  .nav-cta {
+    background: var(--dorado); color: var(--verde) !important;
+    padding: 10px 22px; border-radius: 4px;
+    font-weight: 600 !important; transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--dorado2) !important; color: var(--verde) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background:
+		url('DJI_0006.JPG') center/cover no-repeat;
+    display: flex; align-items: center;
+    padding: 100px 40px 60px;
+    position: relative;
+  }
+
+  /* Fallback sólido si no carga la foto */
+  .hero-bg-fallback {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, var(--verde) 0%, var(--verde2) 60%, var(--verde3) 100%);
+    z-index: -1;
+  }
+
+  .hero-inner { max-width: 1100px; margin: 0 auto; width: 100%; }
+  .hero-badge {
+    display: inline-block;
+    background: var(--dorado); color: var(--verde);
+    font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; padding: 6px 16px; border-radius: 2px;
+    margin-bottom: 28px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 7vw, 88px);
+    font-weight: 700; line-height: 1.05;
+    color: var(--blanco); margin-bottom: 8px;
+    letter-spacing: -1px;
+  }
+  .hero-sub {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(18px, 2.5vw, 26px);
+    color: var(--dorado); margin-bottom: 20px;
+    font-style: italic;
+  }
+  .hero-desc {
+    font-size: 16px; color: rgba(255,255,255,0.85);
+    max-width: 520px; margin-bottom: 40px; line-height: 1.8;
+  }
+  .hero-price {
+    font-size: 14px; color: rgba(255,255,255,0.6);
+    margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px;
+  }
+  .hero-price strong {
+    display: block; font-family: 'Playfair Display', serif;
+    font-size: 42px; color: var(--dorado); font-weight: 700;
+    line-height: 1.1;
+  }
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 32px; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: #25D366; color: #fff;
+    padding: 16px 32px; border-radius: 6px;
+    font-weight: 600; font-size: 15px; text-decoration: none;
+    transition: all 0.2s; box-shadow: 0 4px 20px rgba(37,211,102,0.35);
+  }
+  .btn-primary:hover { background: #1ebc58; transform: translateY(-2px); }
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: transparent; color: var(--blanco);
+    padding: 16px 28px; border-radius: 6px; border: 1.5px solid rgba(255,255,255,0.45);
+    font-weight: 500; font-size: 15px; text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--dorado); color: var(--dorado); }
+
+  .hero-stats {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: rgba(0,0,0,0.95);
+    display: flex; justify-content: center;
+  }
+  .hero-stats-inner {
+    max-width: 1100px; width: 100%;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+  }
+  .stat-item {
+    padding: 5px 24px;
+    border-left: 1px solid rgba(255,255,255,0.08);
+    text-align: center;
+  }
+  .stat-item:first-child { border-left: none; }
+  .stat-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; font-weight: 700;
+    color: var(--dorado); display: block; line-height: 1;
+  }
+  .stat-lbl {
+    font-size: 11px; text-transform: uppercase;
+    letter-spacing: 1px; color: rgba(255,255,255,0.55);
+    margin-top: 4px; display: block;
+  }
+
+  /* ── SECTION WRAPPER ── */
+  .section { padding: 90px 40px; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 2.5px;
+    color: var(--dorado); font-weight: 600; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::after {
+    content: ''; flex: 1; max-width: 40px;
+    height: 1px; background: var(--dorado);
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 3.5vw, 42px);
+    font-weight: 700; color: var(--verde);
+    line-height: 1.2; margin-bottom: 20px;
+  }
+
+  /* ── PROYECTO ── */
+  .proyecto-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 64px; align-items: center; margin-top: 56px;
+  }
+  .proyecto-text p { margin-bottom: 16px; color: var(--gris); font-size: 15px; }
+  .ventajas { display: flex; flex-direction: column; gap: 16px; margin-top: 28px; }
+  .ventaja {
+    display: flex; gap: 16px; align-items: flex-start;
+    padding: 18px 20px;
+    background: var(--crema); border-radius: 6px;
+    border-left: 3px solid var(--verde3);
+  }
+  .ventaja-icon {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--verde); display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .ventaja-icon svg { width: 18px; height: 18px; fill: var(--dorado); }
+  .ventaja-title { font-weight: 600; color: var(--verde); font-size: 14px; margin-bottom: 3px; }
+  .ventaja-desc { font-size: 13px; color: var(--gris2); }
+
+  .foto-stack { position: relative; }
+  .foto-main {
+    width: 100%; aspect-ratio: 4/3;
+    object-fit: cover; border-radius: 8px;
+    display: block;
+  }
+  .foto-badge-loc {
+    position: absolute; bottom: -20px; right: -20px;
+    background: var(--verde); color: var(--blanco);
+    padding: 20px 24px; border-radius: 6px;
+    font-size: 13px; line-height: 1.5;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  }
+  .foto-badge-loc strong { display: block; color: var(--dorado); font-size: 18px; font-weight: 700; }
+
+  /* ── FOTOS GALERÍA ── */
+  .galeria { background: var(--verde); }
+  .galeria-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(24px, 3vw, 36px); color: var(--blanco);
+    margin-bottom: 8px;
+  }
+  .galeria-sub { color: rgba(255,255,255,0.6); font-size: 14px; margin-bottom: 40px; }
+  .foto-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 280px 280px;
+    gap: 8px;
+  }
+  .foto-grid-item { overflow: hidden; border-radius: 4px; }
+  .foto-grid-item img { width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform 0.5s ease; }
+  .foto-grid-item:hover img { transform: scale(1.04); }
+  .foto-grid-item:first-child { grid-row: 1 / 3; }
+
+  /* placeholders si no cargan imágenes */
+  .foto-placeholder {
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, var(--verde2), var(--verde3));
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.5); font-size: 13px; text-align: center;
+    gap: 8px;
+  }
+  .foto-placeholder svg { width: 32px; height: 32px; opacity: 0.4; }
+
+  /* ── PLANO ── */
+  .plano-bg { background: var(--crema); }
+  .plano-container { margin-top: 40px; }
+  .plano-img {
+    width: 100%; border-radius: 8px;
+    border: 1px solid rgba(0,0,0,0.08);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+  }
+  .plano-nota {
+    font-size: 12px; color: var(--gris2);
+    margin-top: 12px; font-style: italic;
+  }
+
+  /* ── LOTES TABLE ── */
+  .lotes-table-wrap { overflow-x: auto; margin-top: 40px; border-radius: 8px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07); }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; background: var(--blanco); }
+  thead tr { background: var(--verde); }
+  thead th {
+    padding: 14px 16px; text-align: left;
+    color: var(--blanco); font-weight: 600;
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  thead th:first-child { border-radius: 0; }
+  thead tr th:nth-child(4) { color: var(--dorado); }
+  tbody tr { border-bottom: 1px solid #f0ece4; transition: background 0.15s; }
+  tbody tr:hover { background: var(--crema); }
+  tbody td { padding: 13px 16px; }
+  tbody td:first-child { font-weight: 600; color: var(--verde); text-align: center; }
+  tbody td:nth-child(4) { font-weight: 700; color: var(--verde); }
+  .badge-disp {
+    display: inline-block; background: #e8f5e9; color: #2e7d32;
+    font-size: 10px; font-weight: 600; padding: 3px 8px;
+    border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px;
+  }
+
+  /* ── CONDICIONES ── */
+  .condiciones-bg { background: var(--verde); }
+  .cond-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(24px, 3vw, 36px); color: var(--blanco); margin-bottom: 8px;
+  }
+  .cond-sub { color: rgba(255,255,255,0.6); font-size: 14px; margin-bottom: 48px; }
+  .cond-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    margin-bottom: 48px;
+  }
+  .cond-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-top: 3px solid var(--dorado);
+    border-radius: 6px; padding: 28px 24px;
+  }
+  .cond-card-title { color: var(--dorado); font-weight: 700; font-size: 16px; margin-bottom: 10px; }
+  .cond-card p { color: rgba(255,255,255,0.75); font-size: 14px; line-height: 1.6; }
+  .cond-card strong { color: var(--blanco); }
+  .cond-docs {
+    background: rgba(255,255,255,0.05); border-radius: 6px;
+    padding: 28px 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  }
+  .cond-doc-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    font-size: 14px; color: rgba(255,255,255,0.8);
+  }
+  .cond-doc-item::before {
+    content: '✓'; color: var(--dorado);
+    font-weight: 700; flex-shrink: 0; margin-top: 1px;
+  }
+
+  /* ── MAPA / UBICACIÓN ── */
+  .ubicacion-bg { background: var(--crema); }
+  .mapa-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; margin-top: 40px; align-items: center; }
+  .mapa-embed {
+    border-radius: 8px; overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    height: 360px;
+  }
+  .mapa-embed iframe { width: 100%; height: 100%; border: none; }
+  .mapa-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; color: var(--verde); margin-bottom: 16px;
+  }
+  .mapa-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .mapa-list li {
+    display: flex; gap: 12px; align-items: center;
+    font-size: 14px; color: var(--gris);
+  }
+  .mapa-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--dorado); flex-shrink: 0;
+  }
+
+  /* ── CONTACTO CTA ── */
+  .contacto {
+    background: linear-gradient(135deg, var(--verde) 0%, #0f2219 100%);
+    padding: 100px 40px; text-align: center;
+  }
+  .contacto-inner { max-width: 640px; margin: 0 auto; }
+  .contacto h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 44px); color: var(--blanco);
+    margin-bottom: 16px;
+  }
+  .contacto p { color: rgba(255,255,255,0.7); font-size: 16px; margin-bottom: 40px; }
+  .contacto-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn-wa {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: #25D366; color: #fff;
+    padding: 18px 36px; border-radius: 6px;
+    font-weight: 700; font-size: 16px; text-decoration: none;
+    transition: all 0.2s; box-shadow: 0 6px 28px rgba(37,211,102,0.4);
+  }
+  .btn-wa:hover { background: #1ebc58; transform: translateY(-2px); }
+  .btn-wa svg { width: 22px; height: 22px; fill: currentColor; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #0a1a10; padding: 40px;
+    text-align: center;
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px; color: var(--blanco); margin-bottom: 8px;
+  }
+  footer p { font-size: 13px; color: rgba(255,255,255,0.35); }
+  .footer-line {
+    width: 40px; height: 2px; background: var(--dorado);
+    margin: 16px auto;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .hero { padding: 100px 20px 80px; }
+    .hero-stats-inner { grid-template-columns: repeat(2, 1fr); }
+    .proyecto-grid, .mapa-grid { grid-template-columns: 1fr; gap: 40px; }
+    .foto-badge-loc { position: static; margin-top: 16px; }
+    .foto-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+    .foto-grid-item:first-child { grid-row: auto; grid-column: 1 / 3; }
+    .cond-grid { grid-template-columns: 1fr; }
+    .cond-docs { grid-template-columns: 1fr; }
+    .section { padding: 60px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-logo">
+    <span>LAS TAPIAS · TANDIL</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#proyecto">El Proyecto</a></li>
+    <li><a href="#plano">Plano</a></li>
+    <li><a href="#lotes">Lotes</a></li>
+    <li><a href="#ubicacion">Ubicación</a></li>
+    <li><a href="#contacto" class="nav-cta">Consultar</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero" id="inicio">
+  <div class="hero-bg-fallback"></div>
+  <div class="hero-inner">
+    <div class="hero-badge">Barrio Abierto · El Paraíso · Tandil</div>
+    <h1>Las Tapias<br>de Tandil</h1>
+    <p class="hero-sub">Naturaleza, amplitud y servicios a 15 minutos del centro</p>
+    <p class="hero-desc">25 lotes de aproximadamente 2.500 m² en la zona de El Paraíso. Con electricidad y gas, rodeados de sierras y naturaleza. El lugar para construir la casa que siempre soñaste.</p>
+    <p class="hero-price">Precio <strong>USD 50 <small style="font-size:22px;font-weight:400">/m²</small></strong></p>
+    <div class="hero-actions">
+      <a href="https://wa.me/5492494469394?text=Hola!%20Vi%20el%20proyecto%20Las%20Tapias%20de%20Tandil%20y%20quiero%20más%20información." class="btn-primary" target="_blank">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Consultar por WhatsApp
+      </a>
+      <a href="#plano" class="btn-secondary">Ver el plano →</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="hero-stats-inner">
+      <div class="stat-item">
+        <span class="stat-val">25</span>
+        <span class="stat-lbl">Lotes disponibles</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-val">~2.500 m²</span>
+        <span class="stat-lbl">Superficie promedio</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-val">15 min</span>
+        <span class="stat-lbl">Del centro de Tandil</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-val">Luz + Gas</span>
+        <span class="stat-lbl">Servicios incluidos</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROYECTO ── -->
+<section class="section" id="proyecto">
+  <div class="section-inner">
+    <p class="section-label">El Proyecto</p>
+    <div class="proyecto-grid">
+      <div class="proyecto-text">
+        <h2 class="section-title">Vivir con espacio real, rodeado de naturaleza</h2>
+        <p>Las Tapias es un loteo residencial de 25 parcelas de gran amplitud, ubicado en la zona de El Paraíso, en el corazón de la serranía tandilense. Un barrio abierto pensado para construir a tu ritmo, con toda la libertad que da el espacio.</p>
+        <p>Cada lote cuenta con acceso a electricidad y gas natural, lo que elimina las principales barreras para comenzar a construir. Las calles internas están definidas y el proyecto cuenta con documentación en orden.</p>
+
+        <div class="ventajas">
+          <div class="ventaja">
+            <div class="ventaja-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            </div>
+            <div>
+              <div class="ventaja-title">Amplitud real</div>
+              <div class="ventaja-desc">Lotes de ~2.500 m², entre 5 y 10 veces más grandes que un lote urbano estándar. Espacio para casa, jardín, pileta y arbolado.</div>
+            </div>
+          </div>
+          <div class="ventaja">
+            <div class="ventaja-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            </div>
+            <div>
+              <div class="ventaja-title">Ubicación estratégica</div>
+              <div class="ventaja-desc">A solo 15 minutos del centro de Tandil. Acceso a escuelas, comercios, gastronomía y servicios de salud sin alejarse del entorno natural serrano.</div>
+            </div>
+          </div>
+          <div class="ventaja">
+            <div class="ventaja-icon">
+              <svg viewBox="0 0 24 24"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
+            </div>
+            <div>
+              <div class="ventaja-title">Servicios</div>
+              <div class="ventaja-desc">Electricidad y gas natural. No es un campo: es un barrio residencial en entorno serrano.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="foto-stack">
+
+    <img 
+        src="DJI_0468.jpg" 
+        alt="Vista aérea del predio El Paraíso"
+        style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;"
+    >
+
+    <div class="foto-badge-loc">
+        <strong>El Paraíso</strong>
+        Tandil, Buenos Aires
+    </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── GALERÍA ── -->
+<section class="section galeria" id="fotos">
+  <div class="section-inner">
+    <p class="section-label" style="color:rgba(255,255,255,0.45)">Imágenes del predio</p>
+    <h2 class="galeria-title">Sierras de Tandil, a 15 minutos de todo</h2>
+    <p class="galeria-sub">Vistas aéreas del loteo y su entorno natural</p>
+
+    <div class="foto-grid">
+      <!-- Foto grande izq: DJI_0466.JPG -->
+      <div class="foto-grid-item">
+        <div class="foto-placeholder">
+          <svg viewBox="0 0 24 24" fill="currentColor"></svg>
+          <span><img src="DJI_0466.JPG" alt="Vista aérea del loteo"></span>
+        </div>
+      </div>
+      <!-- Foto top der: DJI_0469.JPG -->
+      <div class="foto-grid-item">
+        <div class="foto-placeholder">
+          <svg viewBox="0 0 24 24" fill="currentColor"></svg>
+          <span> <img src="DJI_0469.JPG" alt="Vista aérea"></span>
+        </div>
+      </div>
+      <!-- Foto bot centro: DJI_0470.JPG -->
+      <div class="foto-grid-item">
+        <div class="foto-placeholder">
+          <svg viewBox="0 0 24 24" fill="currentColor"></svg>
+          <span> <img src="DJI_0470.JPG" alt="Entorno serrano"></span>
+        </div>
+      </div>
+      <!-- DJI_0486 -->
+      <div class="foto-grid-item">
+        <div class="foto-placeholder">
+          <svg viewBox="0 0 24 24" fill="currentColor"></svg>
+          <img src="DJI_0486.JPG" alt="Sierras de Tandil">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ── RECORRÉ EL PREDIO ── -->
+<section class="recorrido" id="recorrido">
+    <div class="section-inner">
+
+        <p class="section-label">Experiencia inmersiva</p>
+
+        <h2 class="recorrido-title">
+            Recorré El Paraíso desde el aire
+        </h2>
+
+        <p class="recorrido-sub">
+            Descubrí la belleza natural del desarrollo, sus vistas serranas,
+            los caminos internos y la ubicación privilegiada a pocos minutos de Tandil.
+        </p>
+
+        <div class="video-container">
+            <video controls poster="portada-video.jpg">
+                <source src="video-el-paraiso.mp4" type="video/mp4">
+                Tu navegador no soporta videos HTML5.
+            </video>
+        </div>
+
+        <div class="recorrido-cta">
+            <a href="#contacto" class="btn-premium">
+                Solicitar información
+            </a>
+        </div>
+
+    </div>
+</section>
+<!-- ── PLANO ── -->
+<section class="section plano-bg" id="plano">
+  <div class="section-inner">
+    <p class="section-label">Plano del loteo</p>
+    <h2 class="section-title">25 lotes, diseñados para la amplitud</h2>
+    <div class="plano-container">
+      <img src="Plano.jpg" alt="Plano del Loteo Las Tapias" class="plano-img"
+           onerror="this.style.display='none';document.getElementById('plano-fallback').style.display='flex'">
+      <div id="plano-fallback" style="display:none;width:100%;height:400px;background:linear-gradient(135deg,#2D5F42,#1C3A2B);border-radius:8px;align-items:center;justify-content:center;color:rgba(255,255,255,0.5);flex-direction:column;gap:12px;">
+        <svg viewBox="0 0 24 24" style="width:48px;height:48px;fill:currentColor;opacity:0.4"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+        <span>Plano.jpg — verificá que el archivo esté en la misma carpeta que este HTML</span>
+      </div>
+      <p class="plano-nota">* El plano es ilustrativo. Las superficies definitivas surgen del plano de mensura aprobado. Algunos lotes incluyen fracción de calle cedida al municipio.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── TABLA LOTES ── -->
+<section class="section" id="lotes">
+  <div class="section-inner">
+    <p class="section-label">Disponibilidad</p>
+    <h2 class="section-title">Lotes y superficies</h2>
+    <div class="lotes-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>N°</th>
+            <th>Sup. neta</th>
+            <th>Sup. total</th>
+            <th>Precio aprox.</th>
+            <th>Observación</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>2.123 m²</td><td>2.236 m²</td><td>USD 111.800</td><td>Calle s/nombre (tierra)</td><td><span class="badge-disp">Disponible</span></td></tr>
+          <tr><td>2</td><td>2.360 m²</td><td>—</td><td>VENDIDO</td><td>Calle Los Ceibos</td><td><span class="badge-disp">VENDIDO</span></td></tr>
+          <tr><td>3</td><td>2.510 m²</td><td>—</td><td>USD 125.500</td><td>Calle Los Robles</td><td><span class="badge-disp">Disponible</span></td></tr>
+          <tr><td>4</td><td>2.510 m²</td><td>2.790 m²</td><td>USD 139.500</td><td>Incluye fracción de calle</td><td><span class="badge-disp">Disponible</span></td></tr>
+          <tr><td>5</td><td>4.300 m²</td><td>5.000 m²</td><td>USD 250.000</td><td>Incluye fracción de calle</td><td><span class="badge-disp">Disponible</span></td></tr>
+          <tr><td>6</td><td>2.544 m²</td><td>—</td><td>USD 127.200</td><td>Calle Los Ceibos</td><td><span class="badge-disp">Disponible</span></td></tr>
+          <tr><td>7</td><td>2.160 m²</td><td>—</td><td>USD 108.000</td><td>Calle Los Ceibos</td><td><span class="badge-disp">Disponible</span></td></tr>
+          <tr><td>8</td><td>1.763 m²</td><td>—</td><td>USD 88.150</td><td>Interior</td><td><span class="badge-disp">Disponible</span></td></tr>
+          <tr><td>9</td><td>2.160 m²</td><td>—</td><td>USD 108.000</td><td>Calle s/nombre (tierra)</td><td><span class="badge-disp">Disponible</span></td></tr>
+          <tr><td>10</td><td>2.290 m²</td><td>—</td><td>USD 114.500</td><td>Calle Los Olmos</td><td><span class="badge-disp">Disponible</span></td></tr>
+          <tr><td>11</td><td>2.290 m²</td><td>—</td><td>USD 114.500</td><td>Calle Los Olmos</td><td><span class="badge-disp">Disponible</span></td></tr>
+          <tr><td>12</td><td>2.476 m²</td><td>—</td><td>USD 123.800</td><td>Calle Los Olmos</td><td><span class="badge-disp">Disponible</span></td></tr>
+          <tr><td>13</td><td>2.476 m²</td><td>—</td><td>USD 123.800</td><td>Calle Los Olmos</td><td><span class="badge-disp">Disponible</span></td></tr>
+          <tr><td>14</td><td>2.476 m²</td><td>—</td><td>USD 123.800</td><td>Interior</td><td><span class="badge-disp">Disponible</span></td></tr>
+          <tr><td>15</td><td>2.476 m²</td><td>—</td><td>USD 123.800</td><td>Interior</td><td><span class="badge-disp">Disponible</span></td></tr>
+          <tr><td>16</td><td>2.494 m²</td><td>2.800 m²</td><td>USD 140.000</td><td>1/2 Calle s/nombre cerrada</td><td><span class="badge-disp">Disponible</span></td></tr>
+          <tr><td>17</td><td>2.494 m²</td><td>2.800 m²</td><td>USD 140.000</td><td>1/2 Calle s/nombre cerrada</td><td><span class="badge-disp">Disponible</span></td></tr>
+          <tr><td>18</td><td>2.104 m²</td><td>—</td><td>USD 105.200</td><td>Interior</td><td><span class="badge-disp">Disponible</span></td></tr>
+          <tr><td>19</td><td>2.104 m²</td><td>—</td><td>USD 105.200</td><td>Interior</td><td><span class="badge-disp">Disponible</span></td></tr>
+          <tr><td>20</td><td>2.323 m²</td><td>—</td><td>USD 116.150</td><td>Calle s/nombre (tierra)</td><td><span class="badge-disp">Disponible</span></td></tr>
+          <tr><td>21</td><td>2.323 m²</td><td>—</td><td>USD 116.150</td><td>Calle s/nombre (tierra)</td><td><span class="badge-disp">Disponible</span></td></tr>
+          <tr><td>22</td><td>2.102 m²</td><td>—</td><td>USD 105.100</td><td>Interior</td><td><span class="badge-disp">Disponible</span></td></tr>
+          <tr><td>23</td><td>2.102 m²</td><td>—</td><td>USD 105.100</td><td>Interior</td><td><span class="badge-disp">Disponible</span></td></tr>
+          <tr><td>24</td><td>3.057 m²</td><td>—</td><td>USD 152.850</td><td>Interior</td><td><span class="badge-disp">Disponible</span></td></tr>
+          <tr><td>25</td><td>3.057 m²</td><td>3.866 m²</td><td>USD 193.300</td><td>Incluye fracción de calle</td><td><span class="badge-disp">Disponible</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:12px;color:var(--gris2);margin-top:12px;font-style:italic;">* Precio calculado a USD 50/m² sobre la superficie total donde corresponde. Valores de referencia sujetos a verificación con mensura definitiva.</p>
+  </div>
+</section>
+
+<!-- ── UBICACIÓN ── -->
+<section class="section ubicacion-bg" id="ubicacion">
+  <div class="section-inner">
+    <p class="section-label">Ubicación</p>
+    <h2 class="section-title">El Paraíso, Tandil</h2>
+
+    <div class="mapa-grid">
+      <div class="mapa-embed">
+        <!-- Coordenadas del predio: -37.3329, -59.0581 -->
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d1293.4!2d-59.0581!3d-37.3329!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzfCsDE5JzU4LjQiUyA1OcKwMDMnMjkuMiJX!5e1!3m2!1ses!2sar!4v1700000000000"
+          allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Ubicación Las Tapias">
+        </iframe>
+      </div>
+      <div class="mapa-info">
+        <h3>A minutos de todo lo que necesitás</h3>
+        <ul class="mapa-list">
+          <li><span class="mapa-dot"></span>15 minutos del centro de Tandil</li>
+          <li><span class="mapa-dot"></span>Zona El Paraíso · entorno serrano</li>
+          <li><span class="mapa-dot"></span>Próximo a restaurantes y cabañas de la zona</li>
+          <li><span class="mapa-dot"></span>Acceso fácil por caminos principales</li>
+          <li><span class="mapa-dot"></span>Rodeado de vegetación y vista a las sierras</li>
+          <li><span class="mapa-dot"></span>A 350 km de Buenos Aires por la Ruta 226</li>
+        </ul>
+        <div style="margin-top:28px;">
+          <a href="https://www.google.com/maps/dir//@-37.3329,-59.0581,15z" target="_blank"
+            style="display:inline-flex;align-items:center;gap:8px;color:var(--verde);font-weight:600;font-size:14px;text-decoration:none;border-bottom:1.5px solid var(--dorado);padding-bottom:3px;">
+            Ver en Google Maps →
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA CONTACTO ── -->
+<section class="contacto" id="contacto">
+  <div class="contacto-inner">
+    <h2>¿Querés conocer el predio?</h2>
+    <p>Escribinos por WhatsApp y coordinamos una visita sin compromiso. Respondemos dentro de las 24 horas.</p>
+    <div class="contacto-btns">
+      <a href="https://wa.me/5492494469394?text=Hola!%20Vi%20el%20proyecto%20Las%20Tapias%20de%20Tandil%20y%20me%20gustaría%20coordinar%20una%20visita." class="btn-wa" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Escribinos por WhatsApp
+      </a>
+    </div>
+    <p style="font-size:13px;margin-top:24px;color:rgba(255,255,255,0.4);">
+      +54 9 2494 469394
+    </p>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <p class="footer-logo">LAS TAPIAS DE TANDIL</p>
+  <div class="footer-line"></div>
+  <p>Barrio Abierto · Zona El Paraíso · Tandil, Buenos Aires</p>
+  <p style="margin-top:8px;">© 2025 Las Tapias de Tandil. Todos los derechos reservados.</p>
+</footer>
+
+<script>
+// Highlight nav link on scroll
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 80) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + current
+      ? 'var(--dorado)' : '';
+  });
+});
+</script>
+
+</body>
+</html>
